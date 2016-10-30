@@ -1,12 +1,28 @@
 ﻿using System.Collections.Generic;
 
-namespace mazes
+namespace MazeAlgorithms
 {   
-    class Cell
+    public class Cell
     {
         public Cell north, west, east, south;
         private int row, column;
         private List<Cell> links;
+
+        public int Row
+        {
+            get
+            {
+                return row;
+            }
+        }
+
+        public int Column
+        {
+            get
+            {
+                return column;
+            }
+        }
 
         public List<Cell> Links
         {

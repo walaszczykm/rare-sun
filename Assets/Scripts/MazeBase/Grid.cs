@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace mazes
+namespace MazeAlgorithms
 {
-    class Grid
+    public class Grid
     {
         int rows, columns;
         Cell[][] grid;

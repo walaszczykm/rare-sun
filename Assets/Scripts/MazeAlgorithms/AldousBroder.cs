@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace mazes
+namespace MazeAlgorithms
 {
     static class AldousBroder
     {
