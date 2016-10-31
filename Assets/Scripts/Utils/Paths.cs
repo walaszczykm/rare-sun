@@ -2,6 +2,6 @@
 {
     public class Prefabs
     {
-        public const string CELL = "Prefabs/Cell";
+        public const string CELL = "Prefabs/Cell3x3";
     }
 }

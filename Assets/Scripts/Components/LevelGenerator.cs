@@ -4,29 +4,34 @@ using System.IO;
 
 public class LevelGenerator : MonoBehaviour
 {
-    private const int CELL_SIZE = 5;
+    [SerializeField]
+    private int rows, columns;
+
+    private const float CELL_SIZE = 5.0f;
     private GameObject cellPrefab;
     private Grid grid;
 
-    void Awake()
+    private void Awake()
     {
         cellPrefab = Resources.Load<GameObject>(Paths.Prefabs.CELL);
-        grid = AldousBroder.Using(new Grid(5, 5));
+        grid = AldousBroder.Using(new Grid(rows, columns));
         File.WriteAllText("grid.txt", grid.ToString());
     }
 
-    void Start()
+    private void Start()
     {
         InstCells();
     }
 
     private void InstCells()
     {
+        Transform mazeParent = new GameObject("Maze").transform;
         //iterate through each cell in grid
         grid.EachCell(cell =>
         {
             //instantiate new cell gmae object based on cellPrefab
             Transform cellTrans = Instantiate(cellPrefab).transform;
+            cellTrans.SetParent(mazeParent);
             CellComponent cellComp = cellTrans.GetComponent<CellComponent>();
             if(cellComp != null)
             {
@@ -41,7 +46,7 @@ public class LevelGenerator : MonoBehaviour
             }
             else
             {
-                Debug.LogError("InstCell - CellComponent is missing.");
+                Debug.LogError("LevelGenerator.InstCell - CellComponent is missing.");
             }
         });
     }

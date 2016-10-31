@@ -7,6 +7,23 @@ namespace MazeAlgorithms
         int rows, columns;
         Cell[][] grid;
 
+        public int Rows
+        {
+            get
+            {
+                return rows;
+            }
+        }
+
+        public int Columns
+        {
+            get
+            {
+                return columns;
+            }
+        }
+
+
         public int Size
         {
             get
