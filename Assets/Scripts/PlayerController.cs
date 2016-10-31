@@ -48,13 +48,13 @@ public class PlayerController : MonoBehaviour
 
     private void Rotate()
     {
-        Vector3 input = new Vector3(0, Input.GetAxisRaw("Mouse X"), 0).normalized;
+        Vector3 input = new Vector3(0, Input.GetAxis("Mouse X"), 0).normalized;
         character.Rotate(input * rotateSpeed);
     }
 
     private void CameraUpdate()
     {
-        cameraPoint.eulerAngles = character.eulerAngles;
-        cameraPoint.position = Vector3.Lerp(cameraPoint.position, character.position, Time.deltaTime * 5.0f);
+        cameraPoint.rotation = Quaternion.Lerp(cameraPoint.rotation, character.rotation, Time.deltaTime * 10.0f);
+        cameraPoint.position = Vector3.Lerp(cameraPoint.position, character.position, Time.deltaTime * 7.0f);
     }
 }
