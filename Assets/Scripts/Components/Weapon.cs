@@ -3,13 +3,12 @@ using System;
 using System.Collections;
 
 [Serializable]
-public class Weapon : MonoBehaviour
+public class Weapon : Pickup
 {
     public enum Model
     {
         PISTOL,
-        SMG,
-        GRANTE
+        SMG
     }
 
     public enum ShootingMode
@@ -73,5 +72,10 @@ public class Weapon : MonoBehaviour
     public void OnShoot()
     {
         //TODO: shooting effect
+    }
+
+    protected override void OnPickedup(Player player)
+    {
+        player.AddWeapon(model);
     }
 }

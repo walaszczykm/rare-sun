@@ -5,6 +5,8 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    private int health = 100;
+    [SerializeField]
     private Transform weaponPoint;
     [SerializeField]
     private Camera cam;
@@ -29,12 +31,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         AddWeapon(Weapon.Model.PISTOL);
-        AddWeapon(Weapon.Model.SMG);
-    }
-
-    public void CollectPickup(Pickup pickup)
-    {
-        Debug.Log("Player.CollectPickup " + pickup.name);
     }
 
     public void Shoot()
@@ -83,6 +79,18 @@ public class Player : MonoBehaviour
         yield return null;
     }
 
+    public void AddHealth(int hp)
+    {
+        if (hp > 0)
+        {
+            health += hp;
+            if (health > 100)
+            {
+                health = 100;
+            }
+        }
+    }
+
     public void SwitchWeapon(int direction)
     {
         int current = (int)currentWeaponModel;
@@ -111,6 +119,8 @@ public class Player : MonoBehaviour
             GameObject weaponGO = Instantiate(Resources.Load<GameObject>(
                 Paths.Prefabs.WEAPONS + model.ToString()));
             weaponGO.transform.SetParent(weaponPoint);
+            weaponGO.transform.localPosition = Vector3.zero;
+            weaponGO.transform.localEulerAngles = Vector3.zero;
             Weapon weapon = weaponGO.GetComponent<Weapon>();
 
             weapons.Add(model, weapon);

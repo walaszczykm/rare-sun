@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
 
     public void Hit(int damage)
     {
-        Debug.Log(name + " get " + damage + " points of damage.\n");
         health -= damage;
         if(health <= 0)
         {
@@ -23,6 +22,6 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         //TODO: die effect
-        Destroy(gameObject, 5.0f);
+        Destroy(gameObject);
     }
 }
