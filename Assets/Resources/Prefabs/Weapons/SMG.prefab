@@ -88,6 +88,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011154058318}
+  - 114: {fileID: 114000010305662652}
   m_Layer: 0
   m_Name: SMG
   m_TagString: Untagged
@@ -320,3 +321,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114000010305662652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013786965530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7380ed25b56b47e47ab62125b281ee10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: 1
+  shootingMode: 1
+  damage: 30
+  range: 150

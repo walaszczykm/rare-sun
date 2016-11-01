@@ -1,0 +1,33 @@
+﻿using UnityEngine;
+using System.Collections;
+
+[RequireComponent(typeof(Rigidbody))]
+public class Enemy : MonoBehaviour
+{
+    [SerializeField]
+    private int health = 100;
+
+    private Rigidbody myRigidbody;
+
+    private void Awake()
+    {
+        myRigidbody = GetComponent<Rigidbody>
+        myRigidbody.isKinematic = true;
+    }
+
+    public void Hit(int damage)
+    {
+        Debug.Log(name + " get " + damage + " points of damage.\n");
+        health -= damage;
+        if(health <= 0)
+        {
+            Die();
+        }
+    }
+    
+    private void Die()
+    {
+        myRigidbody.isKinematic = false;
+        Destroy(gameObject, 5.0f);
+    }
+}
