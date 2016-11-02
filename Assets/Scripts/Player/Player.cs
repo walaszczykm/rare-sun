@@ -25,7 +25,9 @@ public class Player : MonoBehaviour
     {
         get
         {
-            return weapons[currentWeaponModel];
+            Weapon weapon;
+            weapons.TryGetValue(currentWeaponModel, out weapon);
+            return weapon;
         }
     }
     private int points = 0;
@@ -54,7 +56,10 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
-        StartCoroutine("ShootCoroutine");
+        if(CurrentWeapon != null)
+        {
+            StartCoroutine("ShootCoroutine");
+        }
     }
 
     public void StopShooting()
