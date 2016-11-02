@@ -11,6 +11,22 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1000013902052124}
   m_IsPrefabParent: 1
+--- !u!1 &1000010142863914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000013316716298}
+  - 108: {fileID: 108000011767299286}
+  m_Layer: 0
+  m_Name: Spotlight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000010205047696
 GameObject:
   m_ObjectHideFlags: 1
@@ -22,7 +38,7 @@ GameObject:
   - 33: {fileID: 33000012569097654}
   - 65: {fileID: 65000010581416842}
   - 23: {fileID: 23000011686970686}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Corner4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +56,7 @@ GameObject:
   - 33: {fileID: 33000011557551386}
   - 65: {fileID: 65000013629018800}
   - 23: {fileID: 23000013426309030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SouthExit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +71,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010745957622}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: South
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +89,7 @@ GameObject:
   - 33: {fileID: 33000013513890222}
   - 65: {fileID: 65000014275191416}
   - 23: {fileID: 23000010356645288}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NorthExit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +107,7 @@ GameObject:
   - 33: {fileID: 33000013915262746}
   - 65: {fileID: 65000013308821946}
   - 23: {fileID: 23000013561901422}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Corner1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +125,7 @@ GameObject:
   - 33: {fileID: 33000012313649618}
   - 65: {fileID: 65000013829678018}
   - 23: {fileID: 23000011174521582}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +143,7 @@ GameObject:
   - 33: {fileID: 33000013535721138}
   - 65: {fileID: 65000013192738076}
   - 23: {fileID: 23000012932092998}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Corner3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +161,7 @@ GameObject:
   - 33: {fileID: 33000013104354452}
   - 65: {fileID: 65000012898260290}
   - 23: {fileID: 23000012213866354}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +179,7 @@ GameObject:
   - 33: {fileID: 33000012668670592}
   - 65: {fileID: 65000012824702328}
   - 23: {fileID: 23000011169635868}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WestExit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +197,7 @@ GameObject:
   - 33: {fileID: 33000012827123142}
   - 65: {fileID: 65000013180199566}
   - 23: {fileID: 23000012199166908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Corner2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +215,7 @@ GameObject:
   - 33: {fileID: 33000013208928558}
   - 65: {fileID: 65000012453877710}
   - 23: {fileID: 23000012653489704}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +233,7 @@ GameObject:
   - 33: {fileID: 33000012116118796}
   - 65: {fileID: 65000011112761790}
   - 23: {fileID: 23000013414559560}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +251,7 @@ GameObject:
   - 33: {fileID: 33000012363830928}
   - 65: {fileID: 65000014292055014}
   - 23: {fileID: 23000013904687296}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +266,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010066285582}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: North
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +284,7 @@ GameObject:
   - 33: {fileID: 33000011867107272}
   - 65: {fileID: 65000011913816038}
   - 23: {fileID: 23000010039251282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EastExit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +302,7 @@ GameObject:
   - 33: {fileID: 33000014093264182}
   - 65: {fileID: 65000013238724820}
   - 23: {fileID: 23000013716266664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +317,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013071570834}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: West
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +335,7 @@ GameObject:
   - 33: {fileID: 33000012817853954}
   - 65: {fileID: 65000012968089306}
   - 23: {fileID: 23000012619739650}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +350,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011764415390}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +368,7 @@ GameObject:
   - 33: {fileID: 33000014105293450}
   - 65: {fileID: 65000013847751036}
   - 23: {fileID: 23000013746354466}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +383,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013615077918}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: East
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -630,6 +646,7 @@ Transform:
   m_Children:
   - {fileID: 4000011965317586}
   - {fileID: 4000011764415390}
+  - {fileID: 4000013316716298}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000012998232510
@@ -660,6 +677,19 @@ Transform:
   - {fileID: 4000010415106916}
   - {fileID: 4000013461823062}
   m_Father: {fileID: 4000011764415390}
+  m_RootOrder: 2
+--- !u!4 &4000013316716298
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010142863914}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000012929433028}
   m_RootOrder: 2
 --- !u!4 &4000013461823062
 Transform:
@@ -1545,6 +1575,40 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!108 &108000011767299286
+Light:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010142863914}
+  m_Enabled: 1
+  serializedVersion: 7
+  m_Type: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 85
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 1
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!114 &114000011138015496
 MonoBehaviour:
   m_ObjectHideFlags: 1

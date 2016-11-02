@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
+
     [SerializeField]
     private int health = 100;
     [SerializeField]
@@ -27,10 +28,28 @@ public class Player : MonoBehaviour
             return weapons[currentWeaponModel];
         }
     }
+    private int points = 0;
+    public int Points
+    {
+        get
+        {
+            return points;
+        }
+    }
 
     private void Start()
     {
-        AddWeapon(Weapon.Model.PISTOL);
+        ResetPlayer();
+    }
+
+    public void ResetPlayer()
+    {
+        transform.position = Vector3.zero;
+        foreach(Weapon weapon in weapons.Values)
+        {
+            Destroy(weapon.gameObject);
+        }
+        weapons = new Dictionary<Weapon.Model, Weapon>();
     }
 
     public void Shoot()
@@ -89,6 +108,11 @@ public class Player : MonoBehaviour
                 health = 100;
             }
         }
+    }
+
+    public void AddPoints(int points)
+    {
+        this.points += points;
     }
 
     public void SwitchWeapon(int direction)

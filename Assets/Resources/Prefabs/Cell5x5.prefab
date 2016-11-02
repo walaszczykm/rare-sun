@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012649903070}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - 33: {fileID: 33000010389653568}
   - 65: {fileID: 65000012091420656}
   - 23: {fileID: 23000014183368002}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - 33: {fileID: 33000013062333772}
   - 65: {fileID: 65000012802707462}
   - 23: {fileID: 23000010652846342}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - 33: {fileID: 33000012793820528}
   - 65: {fileID: 65000013050172754}
   - 23: {fileID: 23000011047419634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NorthExit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - 33: {fileID: 33000011971574624}
   - 65: {fileID: 65000011733826338}
   - 23: {fileID: 23000010953934316}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - 33: {fileID: 33000010233308368}
   - 65: {fileID: 65000013119750038}
   - 23: {fileID: 23000010675319534}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SouthExit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - 33: {fileID: 33000013190211268}
   - 65: {fileID: 65000010136614098}
   - 23: {fileID: 23000011933801896}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - 33: {fileID: 33000013370145456}
   - 65: {fileID: 65000013139056884}
   - 23: {fileID: 23000011163624644}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - 33: {fileID: 33000010835710982}
   - 65: {fileID: 65000013206468314}
   - 23: {fileID: 23000013245040580}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013730390544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: East
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   - 33: {fileID: 33000011860069338}
   - 65: {fileID: 65000012160747896}
   - 23: {fileID: 23000012869940704}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Corner4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   - 33: {fileID: 33000013705455124}
   - 65: {fileID: 65000011460506672}
   - 23: {fileID: 23000011082994218}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Corner2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012907700588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: West
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   - 33: {fileID: 33000013576654190}
   - 65: {fileID: 65000011792209300}
   - 23: {fileID: 23000010399085618}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   - 33: {fileID: 33000013026873024}
   - 65: {fileID: 65000010060737924}
   - 23: {fileID: 23000011244600448}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   - 33: {fileID: 33000011896809304}
   - 65: {fileID: 65000013021534188}
   - 23: {fileID: 23000013314595082}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   - 33: {fileID: 33000013269070542}
   - 65: {fileID: 65000010620261904}
   - 23: {fileID: 23000010784690884}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +353,7 @@ GameObject:
   - 33: {fileID: 33000011648631708}
   - 65: {fileID: 65000010469343122}
   - 23: {fileID: 23000011138329476}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WestExit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +371,7 @@ GameObject:
   - 33: {fileID: 33000012502071070}
   - 65: {fileID: 65000013356326780}
   - 23: {fileID: 23000013479816848}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   - 33: {fileID: 33000012733265482}
   - 65: {fileID: 65000014124813426}
   - 23: {fileID: 23000014097441870}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -407,7 +407,7 @@ GameObject:
   - 33: {fileID: 33000011993766794}
   - 65: {fileID: 65000011295991176}
   - 23: {fileID: 23000011582374290}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Corner3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   - 33: {fileID: 33000011311972314}
   - 65: {fileID: 65000013394590022}
   - 23: {fileID: 23000014272650526}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +443,7 @@ GameObject:
   - 33: {fileID: 33000012161513550}
   - 65: {fileID: 65000010024676602}
   - 23: {fileID: 23000011895211610}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,7 +458,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011703325398}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: South
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +473,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011411596492}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: North
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,7 +491,7 @@ GameObject:
   - 33: {fileID: 33000010896603980}
   - 65: {fileID: 65000010614368682}
   - 23: {fileID: 23000013203464910}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   - 33: {fileID: 33000011105750278}
   - 65: {fileID: 65000011390606732}
   - 23: {fileID: 23000013628438480}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Corner1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +527,7 @@ GameObject:
   - 33: {fileID: 33000012701980290}
   - 65: {fileID: 65000013057749262}
   - 23: {fileID: 23000011674910616}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,7 +545,7 @@ GameObject:
   - 33: {fileID: 33000013616400138}
   - 65: {fileID: 65000012695934544}
   - 23: {fileID: 23000012351165030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EastExit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,66 +4,95 @@ using System.IO;
 
 public class LevelGenerator : MonoBehaviour
 {
+    private static LevelGenerator instance;
+    public static LevelGenerator Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
     [SerializeField]
     private int rows, columns;
 
     private const float CELL_SIZE = 5.0f;
     private GameObject cellPrefab;
     private Grid grid;
+    private Transform mazeParent = null;
 
     private void Awake()
     {
+        if(instance == null)
+        {
+            instance = this;
+        }
+
         cellPrefab = Resources.Load<GameObject>(Paths.Prefabs.CELL);
-        grid = AldousBroder.Using(new Grid(rows, columns));
-        File.WriteAllText("grid.txt", grid.ToString());
     }
 
     private void Start()
     {
-        InstCells();
+        GenerateLevel();
+        InstPlayer();
     }
 
-    private void InstCells()
+    public void GenerateLevel()
     {
-        Transform mazeParent = new GameObject("Maze").transform;
-        //iterate through each cell in grid
+        if(mazeParent != null)
+        {
+            ++rows;
+            ++columns;
+            Destroy(mazeParent.gameObject);
+        }
+
+        grid = AldousBroder.Using(new Grid(rows, columns));
+        mazeParent = new GameObject("Maze").transform;
+
         grid.EachCell(cell =>
         {
-            //instantiate new cell gmae object based on cellPrefab
-            Transform cellTrans = Instantiate(cellPrefab).transform;
-            cellTrans.SetParent(mazeParent);
-            CellComponent cellComp = cellTrans.GetComponent<CellComponent>();
-            if(cellComp != null)
-            {
-                //Setting position of cell game object
-                Vector3 cellPos = cellTrans.position;
-                cellPos.x = cell.Column * CELL_SIZE;
-                cellPos.z = cell.Row * CELL_SIZE * -1;
-                cellTrans.position = cellPos;
+            Vector3 cellPos = InstCell(mazeParent, cell);
 
+            if(!(cell.Row == 0 && cell.Column == 0))
+            {
                 //position ranodm pickup and activate it
                 GameObject pickup = InstRandomPickup();
-                if(pickup != null)
-                {
-                    pickup.transform.position = new Vector3(cellPos.x, 0.5f, cellPos.z);
-                    pickup.GetComponent<Pickup>().SetupPickup();
-                }
+                pickup.transform.position = new Vector3(cellPos.x, 0.5f, cellPos.z);
+                pickup.transform.SetParent(mazeParent);
+                pickup.GetComponent<Pickup>().SetupPickup();
 
                 //position random enemies
                 GameObject enemy = InstRandomEnemy();
-                if(enemy != null)
+                if (enemy != null)
                 {
                     enemy.transform.position = new Vector3(cellPos.x, 0.5f, cellPos.z);
+                    enemy.transform.SetParent(mazeParent);
                 }
-
-                //call SetPassages to destroy not needed eits in cell game object
-                cellComp.SetPassages(cell);
             }
-            else
+
+            if(cell.Column == grid.Columns-1 && cell.Row == grid.Rows-1)
             {
-                Debug.LogError("LevelGenerator.InstCell - CellComponent is missing.");
+                GameObject exit = InstExit();
+                exit.transform.position = new Vector3(cellPos.x, 0.9f, cellPos.z);
+                exit.transform.SetParent(mazeParent);
             }
         });
+    }
+
+    private Vector3 InstCell(Transform parent, Cell cell)
+    {
+        Transform cellTrans = Instantiate(cellPrefab).transform;
+        cellTrans.SetParent(parent);
+        CellComponent cellComp = cellTrans.GetComponent<CellComponent>();
+
+        Vector3 cellPos = cellTrans.position;
+        cellPos.x = cell.Column * CELL_SIZE;
+        cellPos.z = cell.Row * CELL_SIZE * -1;
+        cellTrans.position = cellPos;
+
+        cellComp.SetPassages(cell);
+
+        return cellPos;
     }
 
     private GameObject InstRandomPickup()
@@ -87,16 +116,32 @@ public class LevelGenerator : MonoBehaviour
                     Resources.Load<GameObject>(Paths.Prefabs.WEAPONS + weaponName));
             }
         }
-        return null;
+        else
+        {
+            return Instantiate(Resources.Load<GameObject>(Paths.Prefabs.COIN));
+        }
     }
 
     private GameObject InstRandomEnemy()
     {
-        int r = Random.Range(0, 10);
+        int r = Random.Range(0, 7);
         if(r == 1)
         {
             return Instantiate(Resources.Load<GameObject>(Paths.Prefabs.ENEMY));
         }
         return null;
+    }
+
+    private void InstPlayer()
+    {
+        GameObject playerGO = Instantiate(Resources.Load<GameObject>(Paths.Prefabs.PLAYER));
+        playerGO.name = "Player";
+        Player player = playerGO.GetComponent<Player>();
+        player.ResetPlayer();
+    }
+
+    private GameObject InstExit()
+    {
+        return Instantiate(Resources.Load<GameObject>(Paths.Prefabs.EXIT));
     }
 }
