@@ -49,6 +49,13 @@ public class LevelGenerator : MonoBehaviour
                     pickup.GetComponent<Pickup>().SetupPickup();
                 }
 
+                //position random enemies
+                GameObject enemy = InstRandomEnemy();
+                if(enemy != null)
+                {
+                    enemy.transform.position = new Vector3(cellPos.x, 0.5f, cellPos.z);
+                }
+
                 //call SetPassages to destroy not needed eits in cell game object
                 cellComp.SetPassages(cell);
             }
@@ -79,6 +86,16 @@ public class LevelGenerator : MonoBehaviour
                 return Instantiate(
                     Resources.Load<GameObject>(Paths.Prefabs.WEAPONS + weaponName));
             }
+        }
+        return null;
+    }
+
+    private GameObject InstRandomEnemy()
+    {
+        int r = Random.Range(0, 10);
+        if(r == 1)
+        {
+            return Instantiate(Resources.Load<GameObject>(Paths.Prefabs.ENEMY));
         }
         return null;
     }
