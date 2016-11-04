@@ -10,4 +10,9 @@
         public const string EXIT = "Prefabs/Exit";
         public const string PLAYER = "Prefabs/Player";
     }
+
+    public class Particles
+    {
+        public const string ENEMY_DIE = "Prefabs/Particles/EnemyDieParticles";
+    }
 }

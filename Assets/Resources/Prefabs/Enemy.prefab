@@ -191,6 +191,7 @@ MonoBehaviour:
   wallsLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  particleSystem: {fileID: 0}
 --- !u!136 &136000010054435024
 CapsuleCollider:
   m_ObjectHideFlags: 1

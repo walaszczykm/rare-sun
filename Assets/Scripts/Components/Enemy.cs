@@ -80,7 +80,12 @@ public class Enemy : MonoBehaviour
     
     private void Die()
     {
-        //TODO: die effect
+        GameObject psGO = Instantiate(Resources.Load<GameObject>(Paths.Particles.ENEMY_DIE));
+        psGO.transform.position = transform.position;
+        ParticleSystem ps = psGO.GetComponent<ParticleSystem>();
+        ps.Play();
+
+        Destroy(psGO, ps.startLifetime);
         Destroy(gameObject);
     }
 }
