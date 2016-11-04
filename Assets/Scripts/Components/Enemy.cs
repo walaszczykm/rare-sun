@@ -18,6 +18,15 @@ public class Enemy : MonoBehaviour
         StartCoroutine(MoveForwardAndCheckForWall());
     }
 
+    private void OnCollisionEnter(Collision coll)
+    {
+        Player player = coll.gameObject.GetComponent<Player>();
+        if(player != null)
+        {
+            player.Hit();
+        }
+    }
+
     //AI
     private IEnumerator MoveForwardAndCheckForWall()
     {

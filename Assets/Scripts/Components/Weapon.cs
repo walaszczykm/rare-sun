@@ -26,6 +26,7 @@ public class Weapon : Pickup
         }
     }
 
+    private const float SHOW_ANIM_DURATION = 0.3f;
 
     [SerializeField]
     private Model model;
@@ -55,27 +56,70 @@ public class Weapon : Pickup
         }
     }
     [SerializeField]
-    private int range;
-    public int Range
+    private int maxAmmo;
+    public int MaxAmmo
     {
         get
         {
-            return range;
+            return maxAmmo;
         }
-    } 
-
-    private void OnEnable()
+    }
+    private int ammo;
+    public int Ammo
     {
-        //animation
+        get
+        {
+            return ammo;
+        }
+        private set
+        {
+            ammo = value;
+        }
+    }
+
+    private void Awake()
+    {
+        Reload();
+    }
+
+    public void Reload()
+    {
+        Ammo = MaxAmmo;
+    }
+
+    public void Show()
+    {
+        StartCoroutine(ShowAnim());
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     public void OnShoot()
     {
+        --Ammo;
         //TODO: shooting effect
+
     }
 
     protected override void OnPickedup(Player player)
     {
         player.AddWeapon(model);
+    }
+
+    private IEnumerator ShowAnim()
+    {
+        float currentTime = 0.0f;
+        Vector3 startPos = new Vector3(0.0f, -0.25f, 0.0f);
+        transform.localPosition = startPos;
+        while (currentTime <= SHOW_ANIM_DURATION)
+        {
+            transform.localPosition = Vector3.Lerp(startPos, Vector3.zero, currentTime / SHOW_ANIM_DURATION);
+
+            yield return new WaitForEndOfFrame();
+            currentTime += Time.deltaTime;
+        }
     }
 }

@@ -335,4 +335,4 @@ MonoBehaviour:
   model: 1
   shootingMode: 1
   damage: 30
-  range: 150
+  maxAmmo: 40

@@ -7,6 +7,18 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private int health = 100;
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+        private set
+        {
+            health = value;
+            HUDManager.Instance.SetHP(health);
+        }
+    }
     [SerializeField]
     private Transform weaponPoint;
     [SerializeField]
@@ -20,13 +32,39 @@ public class Player : MonoBehaviour
     }
 
     private Dictionary<Weapon.Model, Weapon> weapons = new Dictionary<Weapon.Model, Weapon>();
+    private Dictionary<Weapon.Model, Weapon> Weapons
+    {
+        get
+        {
+            return weapons;
+        }
+        set
+        {
+            weapons = value;
+            HUDManager.Instance.SetWeaponModel(string.Empty);
+            HUDManager.Instance.SetAP(0, 0);
+        }
+    }
     private Weapon.Model currentWeaponModel;
+    public Weapon.Model CurrentWeaponModel
+    {
+        get
+        {
+            return currentWeaponModel;
+        }
+        private set
+        {
+            currentWeaponModel = value;
+            HUDManager.Instance.SetWeaponModel(currentWeaponModel.ToString());
+            HUDManager.Instance.SetAP(CurrentWeapon.Ammo, CurrentWeapon.MaxAmmo);
+        }
+    }
     private Weapon CurrentWeapon
     {
         get
         {
             Weapon weapon;
-            weapons.TryGetValue(currentWeaponModel, out weapon);
+            Weapons.TryGetValue(CurrentWeaponModel, out weapon);
             return weapon;
         }
     }
@@ -37,21 +75,28 @@ public class Player : MonoBehaviour
         {
             return points;
         }
+        private set
+        {
+            points = value;
+            HUDManager.Instance.SetPoints(points);
+        }
     }
 
     private void Start()
     {
+        Health = 100;
+        Points = 0; 
         ResetPlayer();
     }
 
     public void ResetPlayer()
     {
         transform.position = Vector3.zero;
-        foreach(Weapon weapon in weapons.Values)
+        foreach(Weapon weapon in Weapons.Values)
         {
             Destroy(weapon.gameObject);
         }
-        weapons = new Dictionary<Weapon.Model, Weapon>();
+        Weapons = new Dictionary<Weapon.Model, Weapon>();
     }
 
     public void Shoot()
@@ -71,14 +116,18 @@ public class Player : MonoBehaviour
     {
         while(true)
         {
+            if(CurrentWeapon.Ammo <= 0)
+            {
+                break;
+            }
+
             RaycastHit hit;
 
-            if(Physics.Raycast(cam.transform.position, cam.transform.forward,
-                out hit, CurrentWeapon.Range))
+            if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
             {
-                Debug.DrawLine(cam.transform.position, hit.point, Color.red);
-
                 CurrentWeapon.OnShoot();
+                HUDManager.Instance.SetAP(CurrentWeapon.Ammo, CurrentWeapon.MaxAmmo);
+
                 Enemy enemy = hit.collider.GetComponent<Enemy>();
                 if(enemy != null)
                 {
@@ -105,45 +154,54 @@ public class Player : MonoBehaviour
 
     public void AddHealth(int hp)
     {
-        if (hp > 0)
+        if(hp > 0)
         {
-            health += hp;
-            if (health > 100)
+            Health += hp;
+            if (Health > 100)
             {
-                health = 100;
+                Health = 100;
             }
         }
     }
 
+    public void Hit()
+    {
+        Health -= 20;
+    }
+
     public void AddPoints(int points)
     {
-        this.points += points;
+        Points += points;
     }
 
     public void SwitchWeapon(int direction)
     {
-        int current = (int)currentWeaponModel;
-        int next = (current + direction);
-        if(next < 0)
+        if(Weapons.Count > 0)
         {
-            current = Weapon.ModelsNumber + next;
+            int current = (int)currentWeaponModel;
+            int next = (current + direction);
+            if (next < 0)
+            {
+                current = Weapon.ModelsNumber + next;
+            }
+            else
+            {
+                current = next % Weapon.ModelsNumber;
+            }
+            
+            currentWeaponModel = (Weapon.Model)current;
+            if(!Weapons.ContainsKey(currentWeaponModel))
+            {
+                SwitchWeapon(direction);
+            }
+            CurrentWeaponModel = currentWeaponModel;
+            SetCurrentWeaponGameObject();
         }
-        else
-        {
-            current = next % Weapon.ModelsNumber;
-        }
-        currentWeaponModel = (Weapon.Model)current;
-        if(!weapons.ContainsKey(currentWeaponModel))
-        {
-            SwitchWeapon(direction);
-        }
-        
-        SetCurrentWeaponGameObject();
     }
 
     public void AddWeapon(Weapon.Model model)
     {
-        if(!weapons.ContainsKey(model))
+        if(!Weapons.ContainsKey(model))
         {
             GameObject weaponGO = Instantiate(Resources.Load<GameObject>(
                 Paths.Prefabs.WEAPONS + model.ToString()));
@@ -152,18 +210,27 @@ public class Player : MonoBehaviour
             weaponGO.transform.localEulerAngles = Vector3.zero;
             Weapon weapon = weaponGO.GetComponent<Weapon>();
 
-            weapons.Add(model, weapon);
+            Weapons.Add(model, weapon);
 
-            currentWeaponModel = model;
+            CurrentWeaponModel = model;
             SetCurrentWeaponGameObject();
+        }
+        else
+        {
+            Weapons[model].Reload();
+            if(model == CurrentWeaponModel)
+            {
+                CurrentWeaponModel = model;
+            }
         }
     }
 
     private void SetCurrentWeaponGameObject()
     {
-        foreach(Weapon weapon in weapons.Values)
+        foreach(Weapon weapon in Weapons.Values)
         {
-            weapon.gameObject.SetActive(weapon.ModelType == currentWeaponModel);
+            weapon.gameObject.SetActive(weapon.ModelType == CurrentWeaponModel);
         }
+        CurrentWeapon.Show();
     }
 }
