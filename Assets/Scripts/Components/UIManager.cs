@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
     public void SetEndGameLayout()
     {
         gameOverScreen.SetActive(true);
-        points2.text = points.text;
+        points2.text = "points: " + points.text + "    best: " + PlayerPrefs.GetInt(Player.HIGHSCORE_PREFS_KEY);
         HUD.SetActive(false);
     }
 

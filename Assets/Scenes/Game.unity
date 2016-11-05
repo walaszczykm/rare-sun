@@ -483,7 +483,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 12345
+  m_Text: 'points: 23423    best:23457'
 --- !u!222 &687443357
 CanvasRenderer:
   m_ObjectHideFlags: 0

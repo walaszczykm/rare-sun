@@ -4,9 +4,26 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
+    #region Consts
+    public const string HIGHSCORE_PREFS_KEY = "HIGHSCORE";
+    #endregion
 
+    #region SerializedFields
     [SerializeField]
     private int health = 100;
+    [SerializeField]
+    private Transform weaponPoint;
+    [SerializeField]
+    private Camera cam;
+    #endregion
+
+    #region PrivateFields
+    private Dictionary<Weapon.Model, Weapon> weapons = new Dictionary<Weapon.Model, Weapon>();
+    private Weapon.Model currentWeaponModel;
+    private int points = 0;
+    #endregion
+
+    #region Properties
     public int Health
     {
         get
@@ -19,10 +36,6 @@ public class Player : MonoBehaviour
             UIManager.Instance.SetHP(health);
         }
     }
-    [SerializeField]
-    private Transform weaponPoint;
-    [SerializeField]
-    private Camera cam;
     public Camera Cam
     {
         get
@@ -31,7 +44,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private Dictionary<Weapon.Model, Weapon> weapons = new Dictionary<Weapon.Model, Weapon>();
     private Dictionary<Weapon.Model, Weapon> Weapons
     {
         get
@@ -45,7 +57,6 @@ public class Player : MonoBehaviour
             UIManager.Instance.SetAP(0, 0);
         }
     }
-    private Weapon.Model currentWeaponModel;
     public Weapon.Model CurrentWeaponModel
     {
         get
@@ -68,7 +79,6 @@ public class Player : MonoBehaviour
             return weapon;
         }
     }
-    private int points = 0;
     public int Points
     {
         get
@@ -81,14 +91,18 @@ public class Player : MonoBehaviour
             UIManager.Instance.SetPoints(points);
         }
     }
+    #endregion
 
+    #region MonoBehaviour methods
     private void Start()
     {
         Health = 100;
         Points = 0; 
         ResetPlayer();
     }
+    #endregion
 
+    #region Public methods
     public void ResetPlayer()
     {
         transform.position = Vector3.zero;
@@ -112,45 +126,7 @@ public class Player : MonoBehaviour
         StopCoroutine("ShootCoroutine");
     }
 
-    private IEnumerator ShootCoroutine()
-    {
-        while(true)
-        {
-            if(CurrentWeapon.Ammo <= 0)
-            {
-                break;
-            }
-
-            RaycastHit hit;
-
-            if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
-            {
-                CurrentWeapon.OnShoot();
-                UIManager.Instance.SetAP(CurrentWeapon.Ammo, CurrentWeapon.MaxAmmo);
-
-                Enemy enemy = hit.collider.GetComponent<Enemy>();
-                if(enemy != null)
-                {
-                    enemy.Hit(CurrentWeapon.Damage);
-                    //TODO: emit blood particles
-                }
-                else
-                {
-                    //TODO: emit sparks particles
-                }
-            }
-
-            if(CurrentWeapon.ShootingModeType == Weapon.ShootingMode.SINGLE)
-            {
-                break;
-            }
-            else
-            {
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
-        yield return null;
-    }
+    
 
     public void AddHealth(int hp)
     {
@@ -228,6 +204,48 @@ public class Player : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region Private methods
+    private IEnumerator ShootCoroutine()
+    {
+        while (true)
+        {
+            if (CurrentWeapon.Ammo <= 0)
+            {
+                break;
+            }
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
+            {
+                CurrentWeapon.OnShoot();
+                UIManager.Instance.SetAP(CurrentWeapon.Ammo, CurrentWeapon.MaxAmmo);
+
+                Enemy enemy = hit.collider.GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    enemy.Hit(CurrentWeapon.Damage);
+                    //TODO: emit blood particles
+                }
+                else
+                {
+                    //TODO: emit sparks particles
+                }
+            }
+
+            if (CurrentWeapon.ShootingModeType == Weapon.ShootingMode.SINGLE)
+            {
+                break;
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+        yield return null;
+    }
 
     private void SetCurrentWeaponGameObject()
     {
@@ -240,13 +258,35 @@ public class Player : MonoBehaviour
 
     private void GameOver()
     {
+        ManageSavedHighScore();
+
         cam.transform.SetParent(null);
         LevelGenerator.Instance.DestroyLevel();
         UIManager.Instance.SetEndGameLayout();
+        
         if (CurrentWeapon != null)
         {
             Destroy(CurrentWeapon.gameObject);
         }
         Destroy(gameObject);
     }
+
+    private void ManageSavedHighScore()
+    {
+        if(PlayerPrefs.HasKey(HIGHSCORE_PREFS_KEY))
+        {
+            int highscore = PlayerPrefs.GetInt(HIGHSCORE_PREFS_KEY);
+            if(points > highscore)
+            {
+                PlayerPrefs.SetInt(HIGHSCORE_PREFS_KEY, points);
+                PlayerPrefs.Save();
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetInt(HIGHSCORE_PREFS_KEY, points);
+            PlayerPrefs.Save();
+        }
+    }
+    #endregion
 }
