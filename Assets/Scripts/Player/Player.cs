@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
         private set
         {
             health = value;
-            HUDManager.Instance.SetHP(health);
+            UIManager.Instance.SetHP(health);
         }
     }
     [SerializeField]
@@ -41,8 +41,8 @@ public class Player : MonoBehaviour
         set
         {
             weapons = value;
-            HUDManager.Instance.SetWeaponModel(string.Empty);
-            HUDManager.Instance.SetAP(0, 0);
+            UIManager.Instance.SetWeaponModel(string.Empty);
+            UIManager.Instance.SetAP(0, 0);
         }
     }
     private Weapon.Model currentWeaponModel;
@@ -55,8 +55,8 @@ public class Player : MonoBehaviour
         private set
         {
             currentWeaponModel = value;
-            HUDManager.Instance.SetWeaponModel(currentWeaponModel.ToString());
-            HUDManager.Instance.SetAP(CurrentWeapon.Ammo, CurrentWeapon.MaxAmmo);
+            UIManager.Instance.SetWeaponModel(currentWeaponModel.ToString());
+            UIManager.Instance.SetAP(CurrentWeapon.Ammo, CurrentWeapon.MaxAmmo);
         }
     }
     private Weapon CurrentWeapon
@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
         private set
         {
             points = value;
-            HUDManager.Instance.SetPoints(points);
+            UIManager.Instance.SetPoints(points);
         }
     }
 
@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
             if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
             {
                 CurrentWeapon.OnShoot();
-                HUDManager.Instance.SetAP(CurrentWeapon.Ammo, CurrentWeapon.MaxAmmo);
+                UIManager.Instance.SetAP(CurrentWeapon.Ammo, CurrentWeapon.MaxAmmo);
 
                 Enemy enemy = hit.collider.GetComponent<Enemy>();
                 if(enemy != null)
@@ -167,6 +167,10 @@ public class Player : MonoBehaviour
     public void Hit()
     {
         Health -= 20;
+        if(Health <= 0)
+        {
+            GameOver();
+        }
     }
 
     public void AddPoints(int points)
@@ -232,5 +236,17 @@ public class Player : MonoBehaviour
             weapon.gameObject.SetActive(weapon.ModelType == CurrentWeaponModel);
         }
         CurrentWeapon.Show();
+    }
+
+    private void GameOver()
+    {
+        cam.transform.SetParent(null);
+        LevelGenerator.Instance.DestroyLevel();
+        UIManager.Instance.SetEndGameLayout();
+        if (CurrentWeapon != null)
+        {
+            Destroy(CurrentWeapon.gameObject);
+        }
+        Destroy(gameObject);
     }
 }

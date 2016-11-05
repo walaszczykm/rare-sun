@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int health = 100;
     [SerializeField]
-    private int moveSpeed = 2;
+    private int moveSpeed = 1;
     [SerializeField]
     private LayerMask wallsLayerMask;
 
@@ -18,12 +18,13 @@ public class Enemy : MonoBehaviour
         StartCoroutine(MoveForwardAndCheckForWall());
     }
 
-    private void OnCollisionEnter(Collision coll)
+    private void OnTriggerEnter(Collider coll)
     {
         Player player = coll.gameObject.GetComponent<Player>();
         if(player != null)
         {
             player.Hit();
+            LookForDirectionAndRotate();
         }
     }
 

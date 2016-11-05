@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private Text points, hp, weaponModel, ap;
+    private Text points, points2, hp, weaponModel, ap;
+    [SerializeField]
+    private GameObject HUD, gameOverScreen;
 
-    private static HUDManager instance;
-    public static HUDManager Instance
+    private static UIManager instance;
+    public static UIManager Instance
     {
         get
         {
@@ -23,6 +25,24 @@ public class HUDManager : MonoBehaviour
         }
     }
     
+    private void Start()
+    {
+        SetGameLayout();
+    }
+
+    public void SetGameLayout()
+    {
+        HUD.SetActive(true);
+        gameOverScreen.SetActive(false);
+    }
+
+    public void SetEndGameLayout()
+    {
+        gameOverScreen.SetActive(true);
+        points2.text = points.text;
+        HUD.SetActive(false);
+    }
+
     public void SetPoints(int value)
     {
         points.text = value.ToString();

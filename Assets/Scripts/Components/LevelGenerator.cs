@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using MazeAlgorithms;
 using System.IO;
 
@@ -37,13 +38,23 @@ public class LevelGenerator : MonoBehaviour
         InstPlayer();
     }
 
+    public void OnRestart()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void DestroyLevel()
+    {
+        Destroy(mazeParent.gameObject);
+    }
+
     public void GenerateLevel()
     {
         if(mazeParent != null)
         {
             ++rows;
             ++columns;
-            Destroy(mazeParent.gameObject);
+            DestroyLevel();
         }
 
         grid = AldousBroder.Using(new Grid(rows, columns));
