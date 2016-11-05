@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using MazeAlgorithms;
-using System.IO;
+using System.Linq;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -14,13 +14,18 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private int rows, columns;
-
+    #region Consts
+    public const string MAZE_ALGORITHM_PREFS_KEY = "ALGORITHM";
+    public const string MAZE_ROWS_PREFS_KEY = "ROWS";
+    public const string MAZE_COLUMNS_PREFS_KEY = "COLUMNS";
     private const float CELL_SIZE = 5.0f;
+    #endregion
+
+    private int rows, columns;
     private GameObject cellPrefab;
     private Grid grid;
     private Transform mazeParent = null;
+    private MazeAlgorithm algorithm;
 
     private void Awake()
     {
@@ -30,10 +35,13 @@ public class LevelGenerator : MonoBehaviour
         }
 
         cellPrefab = Resources.Load<GameObject>(Paths.Prefabs.CELL);
+        rows = 2;
+        columns = 2;
     }
 
     private void Start()
     {
+        CheckPrefsKeys();
         GenerateLevel();
         InstPlayer();
     }
@@ -57,7 +65,7 @@ public class LevelGenerator : MonoBehaviour
             DestroyLevel();
         }
 
-        grid = AldousBroder.Using(new Grid(rows, columns));
+        grid = algorithm.Using(new Grid(rows, columns));
         mazeParent = new GameObject("Maze").transform;
 
         grid.EachCell(cell =>
@@ -154,5 +162,33 @@ public class LevelGenerator : MonoBehaviour
     private GameObject InstExit()
     {
         return Instantiate(Resources.Load<GameObject>(Paths.Prefabs.EXIT));
+    }
+
+    private void CheckPrefsKeys()
+    {
+        if(PlayerPrefs.HasKey(MAZE_ROWS_PREFS_KEY))
+        {
+            int rows = PlayerPrefs.GetInt(MAZE_ROWS_PREFS_KEY);
+            if(rows >= 2)
+            {
+                this.rows = rows;
+            }
+        }
+        if(PlayerPrefs.HasKey(MAZE_COLUMNS_PREFS_KEY))
+        {
+            int columns = PlayerPrefs.GetInt(MAZE_COLUMNS_PREFS_KEY);
+            if(columns >= 2)
+            {
+                this.columns = columns;
+            }
+        }
+        if(PlayerPrefs.HasKey(MAZE_ALGORITHM_PREFS_KEY))
+        {
+            algorithm = MazeAlgorithm.Algorithms[PlayerPrefs.GetString(MAZE_ALGORITHM_PREFS_KEY)];
+        }
+        else
+        {
+            algorithm = MazeAlgorithm.Algorithms.Values.ToArray()[0];
+        }
     }
 }

@@ -100,6 +100,14 @@ public class Player : MonoBehaviour
         Points = 0; 
         ResetPlayer();
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        }
+    }
     #endregion
 
     #region Public methods

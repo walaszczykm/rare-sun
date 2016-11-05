@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace MazeAlgorithms
 {
-    static class AldousBroder
+    class AldousBroder : MazeAlgorithm
     {
-        public static Grid Using(Grid grid)
+        public override Grid Using(Grid grid)
         {
             Random random = new Random();
             Cell cell = grid.RandomCell;
