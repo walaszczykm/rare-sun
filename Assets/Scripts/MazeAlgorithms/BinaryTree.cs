@@ -8,7 +8,7 @@ namespace MazeAlgorithms
         public override Grid Using(Grid grid)
         {
             Random random = new Random();
-            grid.EachCell(cell =>
+            grid.ForeachCell(cell =>
             {
                 List<Cell> neighbors = new List<Cell>();
 

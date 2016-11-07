@@ -61,7 +61,7 @@ namespace MazeAlgorithms
             ConfigureCells();
         }
 
-        public void EachCell(Action<Cell> action)
+        public void ForeachCell(Action<Cell> action)
         {
             if (action != null)
             {
@@ -75,7 +75,7 @@ namespace MazeAlgorithms
             }
         }
 
-        public void EachRow(Action<Cell[]> action)
+        public void ForeachRow(Action<Cell[]> action)
         {
             if (action != null)
             {
@@ -95,7 +95,7 @@ namespace MazeAlgorithms
             }
             output += "\n";
 
-            EachRow(row =>
+            ForeachRow(row =>
             {
                 string top = "|";
                 string bottom = "+";

@@ -68,7 +68,7 @@ public class LevelGenerator : MonoBehaviour
         grid = algorithm.Using(new Grid(rows, columns));
         mazeParent = new GameObject("Maze").transform;
 
-        grid.EachCell(cell =>
+        grid.ForeachCell(cell =>
         {
             Vector3 cellPos = InstCell(mazeParent, cell);
 
