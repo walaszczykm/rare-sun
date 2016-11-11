@@ -64,7 +64,18 @@ public class PlayerController : MonoBehaviour
         float mouseWheelInput = Input.GetAxisRaw("Mouse ScrollWheel");
         if(mouseWheelInput != 0.0f)
         {
-            player.SwitchWeapon((int)Mathf.Sign(mouseWheelInput));
+            player.SwitchWeaponWithDirection((int)Mathf.Sign(mouseWheelInput));
+        }
+        else
+        {
+            for(int i=0; i<9; i++)
+            {
+                KeyCode code = (KeyCode)(49 + i);
+                if(Input.GetKeyDown(code))
+                {
+                    player.SwitchWeapon(i);
+                }
+            }
         }
     }
 }

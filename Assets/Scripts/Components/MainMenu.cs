@@ -58,6 +58,7 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetString(LevelGenerator.MAZE_ALGORITHM_PREFS_KEY, algorithmName);
 
         PlayerPrefs.Save();
+        ShowMainMenu();
     }
 
     public void OnBackButtonClicked()

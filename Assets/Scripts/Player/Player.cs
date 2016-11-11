@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class Player : MonoBehaviour
 {
@@ -162,7 +163,21 @@ public class Player : MonoBehaviour
         Points += points;
     }
 
-    public void SwitchWeapon(int direction)
+    public void SwitchWeapon(int number)
+    {
+        if (number < Weapon.ModelsNumber)
+        {
+            Weapon.Model model = (Weapon.Model)number;
+            Weapon weapon;
+            if(Weapons.TryGetValue(model, out weapon))
+            {
+                CurrentWeaponModel = weapon.ModelType;
+                SetCurrentWeaponGameObject();
+            }
+        }
+    }
+
+    public void SwitchWeaponWithDirection(int direction)
     {
         if(Weapons.Count > 0)
         {
@@ -180,7 +195,7 @@ public class Player : MonoBehaviour
             currentWeaponModel = (Weapon.Model)current;
             if(!Weapons.ContainsKey(currentWeaponModel))
             {
-                SwitchWeapon(direction);
+                SwitchWeaponWithDirection(direction);
             }
             CurrentWeaponModel = currentWeaponModel;
             SetCurrentWeaponGameObject();
