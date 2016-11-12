@@ -15,10 +15,10 @@ public class LevelGenerator : MonoBehaviour
     }
 
     #region Consts
+    public const float CELL_SIZE = 5.0f;
     public const string MAZE_ALGORITHM_PREFS_KEY = "ALGORITHM";
     public const string MAZE_ROWS_PREFS_KEY = "ROWS";
     public const string MAZE_COLUMNS_PREFS_KEY = "COLUMNS";
-    private const float CELL_SIZE = 5.0f;
     #endregion
 
     private int rows, columns;
@@ -72,7 +72,13 @@ public class LevelGenerator : MonoBehaviour
         {
             Vector3 cellPos = InstCell(mazeParent, cell);
 
-            if(!(cell.Row == 0 && cell.Column == 0))
+            if(cell.Column == grid.Columns-1 && cell.Row == grid.Rows-1)
+            {
+                GameObject exit = InstExit();
+                exit.transform.position = new Vector3(cellPos.x, 0.9f, cellPos.z);
+                exit.transform.SetParent(mazeParent);
+            }
+            else if(!(cell.Row == 0 && cell.Column == 0))
             {
                 //position ranodm pickup and activate it
                 GameObject pickup = InstRandomPickup();
@@ -86,14 +92,8 @@ public class LevelGenerator : MonoBehaviour
                 {
                     enemy.transform.position = new Vector3(cellPos.x, 0.5f, cellPos.z);
                     enemy.transform.SetParent(mazeParent);
+                    enemy.GetComponent<Enemy>().Init(cell);
                 }
-            }
-
-            if(cell.Column == grid.Columns-1 && cell.Row == grid.Rows-1)
-            {
-                GameObject exit = InstExit();
-                exit.transform.position = new Vector3(cellPos.x, 0.9f, cellPos.z);
-                exit.transform.SetParent(mazeParent);
             }
         });
     }
@@ -107,6 +107,10 @@ public class LevelGenerator : MonoBehaviour
         Vector3 cellPos = cellTrans.position;
         cellPos.x = cell.Column * CELL_SIZE;
         cellPos.z = cell.Row * CELL_SIZE * -1;
+
+        cell.x = cellPos.x;
+        cell.z = cellPos.z;
+
         cellTrans.position = cellPos;
 
         cellComp.SetPassages(cell);

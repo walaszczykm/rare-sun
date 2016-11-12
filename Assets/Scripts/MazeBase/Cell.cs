@@ -5,8 +5,10 @@ namespace MazeAlgorithms
     public class Cell
     {
         public Cell north, west, east, south;
+        public float x, z;
         private int row, column;
         private List<Cell> links;
+        private System.Random random = new System.Random();
 
         public int Row
         {
@@ -29,6 +31,22 @@ namespace MazeAlgorithms
             get
             {
                 return links;
+            }
+        }
+
+        public Cell RandomLink
+        {
+            get
+            {
+                if (links.Count > 0)
+                {
+                    int idx = random.Next(0, links.Count);
+                    return links[idx];
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 

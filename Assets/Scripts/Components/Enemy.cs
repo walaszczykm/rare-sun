@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using MazeAlgorithms;
 
 public class Enemy : MonoBehaviour
 {
@@ -10,12 +11,17 @@ public class Enemy : MonoBehaviour
     private int health = 100;
     [SerializeField]
     private int moveSpeed = 1;
-    [SerializeField]
-    private LayerMask wallsLayerMask;
+    private System.Random random = new System.Random();
+    private Cell currentCell;
+
+    public void Init(Cell cell)
+    {
+        currentCell = cell;
+    }
 
     private void Start()
     {
-        StartCoroutine(MoveForwardAndCheckForWall());
+        StartCoroutine(SwitchingDestinations());
     }
 
     private void OnTriggerEnter(Collider coll)
@@ -24,50 +30,31 @@ public class Enemy : MonoBehaviour
         if(player != null)
         {
             player.Hit();
-            LookForDirectionAndRotate();
-        }
-    }
-
-    //AI
-    private IEnumerator MoveForwardAndCheckForWall()
-    {
-        while(true)
-        {
-            RaycastHit hit;
-            Ray ray = new Ray(transform.position, transform.forward);
-            if(Physics.Raycast(ray, out hit, MIN_DISTANCE_TO_WALL, wallsLayerMask))
-            {
-                Debug.DrawLine(ray.origin, hit.point, Color.blue);
-
-                transform.position = hit.point;
-                transform.Translate(-transform.forward * MIN_DISTANCE_TO_WALL, Space.World);
-
-                LookForDirectionAndRotate();
-                //break;
-            }
-            else
-            {
-                transform.Translate(transform.forward * moveSpeed * Time.deltaTime, Space.World);
-            }
-
-            yield return new WaitForEndOfFrame();
         }
     }
     
-    private void LookForDirectionAndRotate()
+    private IEnumerator SwitchingDestinations()
     {
-        List<Ray> rays = new List<Ray>();
-        rays.Add(new Ray(transform.position, -transform.right));
-        rays.Add(new Ray(transform.position, -transform.forward));
-        rays.Add(new Ray(transform.position, transform.right));
-
-        foreach(Ray ray in rays)
+        while(true)
         {
-            if(!Physics.Raycast(ray, MIN_DISTANCE_TO_WALL + 2.0f, wallsLayerMask))
-            {
-                transform.Rotate(transform.up, Vector3.Angle(transform.forward, ray.direction));
-            }
+            Cell nextCell = currentCell.RandomLink;
+            yield return StartCoroutine(MoveTo(new Vector3(nextCell.x, transform.position.y, nextCell.z)));
+            currentCell = nextCell;
         }
+    }
+
+    private IEnumerator MoveTo(Vector3 destination)
+    {
+        Vector3 startPosition = transform.position;
+        transform.LookAt(destination);
+        float time = 0.0f;
+        while(time < 2.0f)
+        {
+            transform.position = Vector3.Lerp(startPosition, destination, (time/2.0f));
+            yield return new WaitForEndOfFrame();
+            time += Time.deltaTime;
+        }
+        transform.position = destination;
     }
 
     public void Hit(int damage)
