@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 public class Player : MonoBehaviour
 {
     #region Consts
     public const string HIGHSCORE_PREFS_KEY = "HIGHSCORE";
+    private const float SHOOTING_RATE = 0.05f;
     #endregion
 
     #region SerializedFields
@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     private Transform weaponPoint;
     [SerializeField]
     private Camera cam;
+    [SerializeField]
+    private Light shootingLight;
     #endregion
 
     #region PrivateFields
@@ -98,8 +100,11 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Health = 100;
-        Points = 0; 
+        Points = 0;
+        shootingLight.enabled = false;
         ResetPlayer();
+        AddWeapon(Weapon.Model.Pistol);
+        AddWeapon(Weapon.Model.Smg);
     }
 
     private void Update()
@@ -133,6 +138,7 @@ public class Player : MonoBehaviour
     public void StopShooting()
     {
         StopCoroutine("ShootCoroutine");
+        shootingLight.enabled = false;
     }
 
     
@@ -240,7 +246,6 @@ public class Player : MonoBehaviour
             }
 
             RaycastHit hit;
-
             if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
             {
                 CurrentWeapon.OnShoot();
@@ -258,15 +263,16 @@ public class Player : MonoBehaviour
                 }
             }
 
-            if (CurrentWeapon.ShootingModeType == Weapon.ShootingMode.SINGLE)
+            shootingLight.enabled = !shootingLight.enabled;
+            yield return new WaitForSeconds(SHOOTING_RATE);
+
+            if (CurrentWeapon.ShootingModeType == Weapon.ShootingMode.Single)
             {
                 break;
             }
-            else
-            {
-                yield return new WaitForSeconds(0.1f);
-            }
         }
+
+        shootingLight.enabled = false;
         yield return null;
     }
 

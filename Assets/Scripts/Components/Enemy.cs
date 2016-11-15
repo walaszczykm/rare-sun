@@ -1,17 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using MazeAlgorithms;
 
 public class Enemy : MonoBehaviour
 {
-    private const float MIN_DISTANCE_TO_WALL = 1.5f;
-
     [SerializeField]
     private int health = 100;
     [SerializeField]
     private int moveSpeed = 1;
-    private System.Random random = new System.Random();
+
     private Cell currentCell;
 
     public void Init(Cell cell)
@@ -68,12 +67,12 @@ public class Enemy : MonoBehaviour
     
     private void Die()
     {
-        GameObject psGO = Instantiate(Resources.Load<GameObject>(Paths.Particles.ENEMY_DIE));
-        psGO.transform.position = transform.position;
-        ParticleSystem ps = psGO.GetComponent<ParticleSystem>();
+        GameObject psGo = Instantiate(Resources.Load<GameObject>(Paths.Particles.ENEMY_DIE));
+        psGo.transform.position = transform.position;
+        ParticleSystem ps = psGo.GetComponent<ParticleSystem>();
         ps.Play();
 
-        Destroy(psGO, ps.startLifetime);
+        Destroy(psGo, ps.startLifetime);
         Destroy(gameObject);
     }
 }

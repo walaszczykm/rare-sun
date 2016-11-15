@@ -7,14 +7,14 @@ public class Weapon : Pickup
 {
     public enum Model
     {
-        PISTOL,
-        SMG
+        Pistol,
+        Smg
     }
 
     public enum ShootingMode
     {
-        SINGLE,
-        AUTOMATIC
+        Single,
+        Automatic
     }
 
     private static int modelsNumber = Enum.GetNames(typeof(Model)).Length;
