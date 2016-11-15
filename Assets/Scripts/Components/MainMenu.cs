@@ -15,6 +15,8 @@ public class MainMenu : MonoBehaviour
     private Dropdown mazeAlgorithm;
     [SerializeField]
     private Slider loadingBar;
+    [SerializeField]
+    private List<Pickup> pickupMenuFiguresList;
     #endregion
 
     #region MonoBehaviour methods
@@ -27,6 +29,10 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         ShowMainMenu();
+        foreach (Pickup pickup in pickupMenuFiguresList)
+        {
+            pickup.SetupPickup();
+        }
     }
     #endregion
 
@@ -39,6 +45,11 @@ public class MainMenu : MonoBehaviour
     public void OnSettingsButtonClicked()
     {
         ShowSettingsMenu();
+    }
+
+    public void OnQuitButtonClicked()
+    {
+        Application.Quit();
     }
 
     public void OnSaveSettingsButtonClicked()

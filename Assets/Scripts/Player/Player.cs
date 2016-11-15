@@ -103,8 +103,6 @@ public class Player : MonoBehaviour
         Points = 0;
         shootingLight.enabled = false;
         ResetPlayer();
-        AddWeapon(Weapon.Model.Pistol);
-        AddWeapon(Weapon.Model.Smg);
     }
 
     private void Update()
