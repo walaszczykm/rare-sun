@@ -5,10 +5,11 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed, rotateSpeed;
+    private float moveSpeed, rotateSpeed, dashingTime;
 
     private CharacterController controller;
     private Player player;
+    private bool isDashing;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
     {
+        TestIfNeedToDash();
         MovePlayer();
         RotateCameraAndPlayer();
         Shoot();
@@ -26,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        float speed = moveSpeed * (Input.GetKey(KeyCode.LeftShift) ? 2.0f : 1.0f);
+        float speed = moveSpeed * (isDashing ? 2.5f : 1.0f);
 
         Vector3 input = transform.right * Input.GetAxisRaw("Horizontal") +
             transform.forward * Input.GetAxisRaw("Vertical");
@@ -77,5 +79,20 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void TestIfNeedToDash()
+    {
+        if(Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
+        {
+            StartCoroutine(DashCoroutine());
+        }
+    }
+
+    private IEnumerator DashCoroutine()
+    {
+        isDashing = true;
+        yield return new WaitForSeconds(dashingTime);
+        isDashing = false;
     }
 }

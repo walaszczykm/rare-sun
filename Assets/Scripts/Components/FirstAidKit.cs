@@ -8,6 +8,6 @@ public class FirstAidKit : Pickup
 
     protected override void OnPickedup(Player player)
     {
-        player.AddHealth(hp);
+        player.RestoreHealth(hp);
     }
 }

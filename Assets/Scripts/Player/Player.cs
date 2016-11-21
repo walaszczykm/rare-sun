@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         }
         private set
         {
-            health = value;
+            health = Mathf.Clamp(value, 0, 100);
             UIManager.Instance.SetHP(health);
         }
     }
@@ -141,16 +141,10 @@ public class Player : MonoBehaviour
 
     
 
-    public void AddHealth(int hp)
+    public void RestoreHealth(int hp)
     {
-        if(hp > 0)
-        {
-            Health += hp;
-            if (Health > 100)
-            {
-                Health = 100;
-            }
-        }
+        Health += hp;
+        Debug.Log("Player.RestoreHealth(" + hp + ")");
     }
 
     public void Hit()

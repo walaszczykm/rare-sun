@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -17,6 +18,8 @@ public class MainMenu : MonoBehaviour
     private Slider loadingBar;
     [SerializeField]
     private List<Pickup> pickupMenuFiguresList;
+
+    private Button button;
     #endregion
 
     #region MonoBehaviour methods
