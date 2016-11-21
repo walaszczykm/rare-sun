@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator DashCoroutine()
     {
+        player.PlaySfx(Player.SFX.Dash);
         isDashing = true;
         yield return new WaitForSeconds(dashingTime);
         isDashing = false;

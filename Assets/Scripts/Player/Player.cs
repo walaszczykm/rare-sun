@@ -1,9 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
+    public enum SFX
+    {
+        Hit,
+        Dash,
+        Coin,
+        NextLevel,
+        SwitchWeapon,
+        Shoot
+    }
+
     #region Consts
     public const string HIGHSCORE_PREFS_KEY = "HIGHSCORE";
     private const float SHOOTING_RATE = 0.05f;
@@ -18,6 +29,10 @@ public class Player : MonoBehaviour
     private Camera cam;
     [SerializeField]
     private Light shootingLight;
+    [SerializeField]
+    private AudioSource audioSource;
+
+    private Dictionary<SFX, AudioClip> sfxClips;
     #endregion
 
     #region PrivateFields
@@ -68,6 +83,7 @@ public class Player : MonoBehaviour
         }
         private set
         {
+            PlaySfx(SFX.SwitchWeapon);
             currentWeaponModel = value;
             UIManager.Instance.SetWeaponModel(currentWeaponModel.ToString());
             UIManager.Instance.SetAP(CurrentWeapon.Ammo, CurrentWeapon.MaxAmmo);
@@ -97,11 +113,16 @@ public class Player : MonoBehaviour
     #endregion
 
     #region MonoBehaviour methods
-    private void Start()
+    private void Awake()
     {
         Health = 100;
         Points = 0;
         shootingLight.enabled = false;
+    }
+
+    private void Start()
+    {
+        InitSfxsDict();
         ResetPlayer();
     }
 
@@ -149,6 +170,7 @@ public class Player : MonoBehaviour
 
     public void Hit()
     {
+        PlaySfx(SFX.Hit);
         Health -= 20;
         if(Health <= 0)
         {
@@ -158,6 +180,7 @@ public class Player : MonoBehaviour
 
     public void AddPoints(int points)
     {
+        PlaySfx(SFX.Coin);
         Points += points;
     }
 
@@ -225,6 +248,13 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    public void PlaySfx(SFX sfx)
+    {
+        audioSource.Stop();
+        audioSource.clip = sfxClips[sfx];
+        audioSource.Play();
+    }
     #endregion
 
     #region Private methods
@@ -255,6 +285,7 @@ public class Player : MonoBehaviour
                 }
             }
 
+            PlaySfx(SFX.Shoot);
             shootingLight.enabled = !shootingLight.enabled;
             yield return new WaitForSeconds(SHOOTING_RATE);
 
@@ -307,6 +338,16 @@ public class Player : MonoBehaviour
         {
             PlayerPrefs.SetInt(HIGHSCORE_PREFS_KEY, points);
             PlayerPrefs.Save();
+        }
+    }
+
+    private void InitSfxsDict()
+    {
+        sfxClips = new Dictionary<SFX, AudioClip>();
+        foreach (string sfxName in Enum.GetNames(typeof(SFX)))
+        {
+            sfxClips.Add((SFX)Enum.Parse(typeof(SFX), sfxName), 
+                Resources.Load<AudioClip>(Paths.Audio.SFXS + sfxName));
         }
     }
     #endregion

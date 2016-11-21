@@ -15,4 +15,9 @@
     {
         public const string ENEMY_DIE = "Prefabs/Particles/EnemyDieParticles";
     }
+
+    public class Audio
+    {
+        public const string SFXS = "Audio/Sfx/";
+    }
 }

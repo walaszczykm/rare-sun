@@ -190,7 +190,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 55037cc911dac6649805f8d1661ca7d5, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -263,7 +263,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -417,6 +417,7 @@ MonoBehaviour:
   weaponPoint: {fileID: 4000014191409486}
   cam: {fileID: 20000011188900082}
   shootingLight: {fileID: 108000013609646596}
+  audioSource: {fileID: 82000013669095658}
 --- !u!114 &114000011051106658
 MonoBehaviour:
   m_ObjectHideFlags: 1
