@@ -172,10 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  moveSpeed: 5
-  wallsLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
+  moveSpeed: 8
 --- !u!136 &136000010054435024
 CapsuleCollider:
   m_ObjectHideFlags: 1

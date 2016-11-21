@@ -100,8 +100,6 @@ public class Weapon : Pickup
     public void OnShoot()
     {
         --Ammo;
-        //TODO: shooting effect
-
     }
 
     protected override void OnPickedup(Player player)

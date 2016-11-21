@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
     #region Public methods
     public void ResetPlayer()
     {
-        transform.position = Vector3.zero;
+        transform.position = Vector3.up;
         foreach(Weapon weapon in Weapons.Values)
         {
             Destroy(weapon.gameObject);

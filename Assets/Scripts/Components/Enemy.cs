@@ -8,8 +8,9 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private int health = 100;
+
     [SerializeField]
-    private int moveSpeed = 1;
+    private float moveTime = 1.0f;
 
     private Cell currentCell;
 
@@ -31,12 +32,38 @@ public class Enemy : MonoBehaviour
             player.Hit();
         }
     }
-    
+
+    private Cell GetForwardCell()
+    {
+        Vector3 forward = transform.forward;
+        if(forward == Vector3.forward)
+        {
+            return currentCell.north;
+        }
+        if(forward == Vector3.back)
+        {
+            return currentCell.south;
+        }
+        if(forward == Vector3.right)
+        {
+            return currentCell.east;
+        }
+        if(forward == Vector3.left)
+        {
+            return currentCell.west;
+        }
+        return null;
+    }
+
     private IEnumerator SwitchingDestinations()
     {
         while(true)
         {
-            Cell nextCell = currentCell.RandomLink;
+            Cell nextCell = GetForwardCell();
+            if(!currentCell.IsLinked(nextCell))
+            {
+                nextCell = currentCell.RandomLink;
+            }
             yield return StartCoroutine(MoveTo(new Vector3(nextCell.x, transform.position.y, nextCell.z)));
             currentCell = nextCell;
         }
@@ -47,9 +74,9 @@ public class Enemy : MonoBehaviour
         Vector3 startPosition = transform.position;
         transform.LookAt(destination);
         float time = 0.0f;
-        while(time < 2.0f)
+        while(time < moveTime)
         {
-            transform.position = Vector3.Lerp(startPosition, destination, (time/2.0f));
+            transform.position = Vector3.Lerp(startPosition, destination, (time/moveTime));
             yield return new WaitForEndOfFrame();
             time += Time.deltaTime;
         }

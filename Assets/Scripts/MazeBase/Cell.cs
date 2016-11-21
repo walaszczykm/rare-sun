@@ -84,7 +84,14 @@ namespace MazeAlgorithms
         
         public bool IsLinked(Cell cell)
         {
-            return links.Contains(cell);
+            if (cell != null)
+            {
+                return links.Contains(cell);
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
