@@ -25,6 +25,10 @@ public class MainMenu : MonoBehaviour
     #region MonoBehaviour methods
     private void Awake()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+        Application.targetFrameRate = 60;
+
         SetAlgorithmDropdownTexts();
         SetSettingsValuesFromPrefs();
     }
