@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using MazeAlgorithms;
 using System.Linq;
@@ -22,10 +23,10 @@ public class LevelGenerator : MonoBehaviour
     #endregion
 
     private int rows, columns;
-    private GameObject cellPrefab;
     private Grid grid;
     private Transform mazeParent = null;
     private MazeAlgorithm algorithm;
+    private Dictionary<string, GameObject> prefabsDictionary;
 
     private void Awake()
     {
@@ -33,8 +34,7 @@ public class LevelGenerator : MonoBehaviour
         {
             instance = this;
         }
-
-        cellPrefab = Resources.Load<GameObject>(Paths.Prefabs.CELL);
+        PrewarmPrefabs();
         rows = 2;
         columns = 2;
     }
@@ -80,13 +80,11 @@ public class LevelGenerator : MonoBehaviour
             }
             else if(!(cell.Row == 0 && cell.Column == 0))
             {
-                //position ranodm pickup and activate it
                 GameObject pickup = InstRandomPickup();
                 pickup.transform.position = new Vector3(cellPos.x, 0.5f, cellPos.z);
                 pickup.transform.SetParent(mazeParent);
                 pickup.GetComponent<Pickup>().SetupPickup();
-
-                //position random enemies
+                
                 GameObject enemy = InstRandomEnemy();
                 if (enemy != null)
                 {
@@ -98,9 +96,49 @@ public class LevelGenerator : MonoBehaviour
         });
     }
 
+    private void PrewarmPrefabs()
+    {
+        prefabsDictionary = new Dictionary<string, GameObject>()
+        {
+            {
+                Paths.Prefabs.FIRST_AID_KIT,
+                Resources.Load<GameObject>(Paths.Prefabs.FIRST_AID_KIT)
+            },
+            {
+                Paths.Prefabs.CELL,
+                Resources.Load<GameObject>(Paths.Prefabs.CELL)
+            },
+            {
+                Paths.Prefabs.COIN,
+                Resources.Load<GameObject>(Paths.Prefabs.COIN)
+            },
+            {
+                Paths.Prefabs.ENEMY,
+                Resources.Load<GameObject>(Paths.Prefabs.ENEMY)
+            },
+            {
+                Paths.Prefabs.EXIT,
+                Resources.Load<GameObject>(Paths.Prefabs.EXIT)
+            },
+            {
+                Paths.Prefabs.PLAYER,
+                Resources.Load<GameObject>(Paths.Prefabs.PLAYER)
+            },
+            {
+                Paths.Prefabs.Weapons.PISTOL,
+                Resources.Load<GameObject>(Paths.Prefabs.Weapons.PISTOL)
+            },
+            {
+                Paths.Prefabs.Weapons.SMG,
+                Resources.Load<GameObject>(Paths.Prefabs.Weapons.SMG)
+            }
+        };
+    }
+
     private Vector3 InstCell(Transform parent, Cell cell)
     {
-        Transform cellTrans = Instantiate(cellPrefab).transform;
+        Transform cellTrans = Instantiate(
+            prefabsDictionary[Paths.Prefabs.CELL]).transform;
         cellTrans.SetParent(parent);
         CellComponent cellComp = cellTrans.GetComponent<CellComponent>();
 
@@ -127,21 +165,19 @@ public class LevelGenerator : MonoBehaviour
             if(r == 1)
             {
                 //spawn FirstAidKit
-                return Instantiate(
-                    Resources.Load<GameObject>(Paths.Prefabs.FIRST_AID_KIT));
+                return Instantiate(prefabsDictionary[Paths.Prefabs.FIRST_AID_KIT]);
             }
             else
             {
                 //spawn Weapon
                 r = Random.Range(0, Weapon.ModelsNumber);
                 string weaponName = ((Weapon.Model)r).ToString();
-                return Instantiate(
-                    Resources.Load<GameObject>(Paths.Prefabs.WEAPONS + weaponName));
+                return Instantiate(prefabsDictionary[Paths.Prefabs.WEAPONS + weaponName]);
             }
         }
         else
         {
-            return Instantiate(Resources.Load<GameObject>(Paths.Prefabs.COIN));
+            return Instantiate(prefabsDictionary[Paths.Prefabs.COIN]);
         }
     }
 
@@ -150,14 +186,14 @@ public class LevelGenerator : MonoBehaviour
         int r = Random.Range(0, 7);
         if(r == 1)
         {
-            return Instantiate(Resources.Load<GameObject>(Paths.Prefabs.ENEMY));
+            return Instantiate(prefabsDictionary[Paths.Prefabs.ENEMY]);
         }
         return null;
     }
 
     private void InstPlayer()
     {
-        GameObject playerGO = Instantiate(Resources.Load<GameObject>(Paths.Prefabs.PLAYER));
+        GameObject playerGO = Instantiate(prefabsDictionary[Paths.Prefabs.PLAYER]);
         playerGO.name = "Player";
         Player player = playerGO.GetComponent<Player>();
         player.ResetPlayer();
@@ -165,7 +201,7 @@ public class LevelGenerator : MonoBehaviour
 
     private GameObject InstExit()
     {
-        return Instantiate(Resources.Load<GameObject>(Paths.Prefabs.EXIT));
+        return Instantiate(prefabsDictionary[Paths.Prefabs.EXIT]);
     }
 
     private void CheckPrefsKeys()

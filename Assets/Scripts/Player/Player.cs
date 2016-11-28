@@ -31,14 +31,13 @@ public class Player : MonoBehaviour
     private Light shootingLight;
     [SerializeField]
     private AudioSource audioSource;
-
-    private Dictionary<SFX, AudioClip> sfxClips;
     #endregion
 
     #region PrivateFields
     private Dictionary<Weapon.Model, Weapon> weapons = new Dictionary<Weapon.Model, Weapon>();
     private Weapon.Model currentWeaponModel;
     private int points = 0;
+    private Dictionary<SFX, AudioClip> sfxClips;
     #endregion
 
     #region Properties
@@ -165,7 +164,6 @@ public class Player : MonoBehaviour
     public void RestoreHealth(int hp)
     {
         Health += hp;
-        Debug.Log("Player.RestoreHealth(" + hp + ")");
     }
 
     public void Hit()
