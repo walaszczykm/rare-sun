@@ -8,6 +8,7 @@ namespace MazeAlgorithms
         new Dictionary<string, MazeAlgorithm>()
         {
             { typeof(BinaryTree).Name, new BinaryTree()},
+            { typeof(Sidewinder).Name, new Sidewinder()},
             { typeof(AldousBroder).Name, new AldousBroder()},
             { typeof(RecursiveBacktracker).Name, new RecursiveBacktracker()}
         };
