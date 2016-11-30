@@ -164,12 +164,10 @@ public class LevelGenerator : MonoBehaviour
             r = Random.Range(0, 2);
             if(r == 1)
             {
-                //spawn FirstAidKit
                 return Instantiate(prefabsDictionary[Paths.Prefabs.FIRST_AID_KIT]);
             }
             else
             {
-                //spawn Weapon
                 r = Random.Range(0, Weapon.ModelsNumber);
                 string weaponName = ((Weapon.Model)r).ToString();
                 return Instantiate(prefabsDictionary[Paths.Prefabs.WEAPONS + weaponName]);

@@ -275,11 +275,9 @@ public class Player : MonoBehaviour
                 if (enemy != null)
                 {
                     enemy.Hit(CurrentWeapon.Damage);
-                    //TODO: emit blood particles
                 }
                 else
                 {
-                    //TODO: emit sparks particles
                 }
             }
 
